@@ -38,7 +38,8 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: var(--light-color);
+    background-color: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     transition: var(--transition);
@@ -80,6 +81,7 @@ body {
     font-size: 0.95rem;
     transition: var(--transition);
     position: relative;
+    padding: 0.5rem 0;
 }
 
 .nav-link::after {
@@ -127,6 +129,9 @@ body {
 
 .home-text {
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .home-image {
@@ -200,14 +205,11 @@ body {
     color: var(--gray-color);
     margin-bottom: 2rem;
     max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .home-buttons {
     display: flex;
     gap: 1rem;
-    justify-content: center;
     margin-bottom: 2rem;
 }
 
@@ -218,17 +220,22 @@ body {
     font-weight: 600;
     transition: var(--transition);
     display: inline-block;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
 }
 
 .btn-primary {
     background-color: var(--primary-color);
     color: var(--light-color);
     border: 2px solid var(--primary-color);
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
 }
 
 .btn-primary:hover {
     background-color: transparent;
     transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(37, 99, 235, 0.4);
 }
 
 .btn-secondary {
@@ -246,7 +253,6 @@ body {
 .social-links {
     display: flex;
     gap: 1.5rem;
-    justify-content: center;
 }
 
 .social-links a {
@@ -263,6 +269,8 @@ body {
 /* Section Styling */
 section {
     padding: 80px 0;
+    position: relative;
+    overflow: hidden;
 }
 
 .section-title {
@@ -292,8 +300,8 @@ section {
 
 .about-content {
     display: grid;
-    grid-template-columns: 450px 1fr;
-    gap: 4rem;
+    grid-template-columns: 400px 1fr;
+    gap: 3rem;
     margin-bottom: 3rem;
     align-items: start;
 }
@@ -307,7 +315,8 @@ section {
 .about-profile-container {
     position: relative;
     width: 100%;
-    height: 550px;
+    max-width: 400px;
+    height: 500px;
 }
 
 .about-profile-img {
@@ -338,79 +347,110 @@ section {
 
 .about-education-section {
     width: 100%;
+    margin-top: 3rem;
 }
 
 .about-text h3,
 .about-education h3 {
     font-size: 1.8rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     color: var(--dark-color);
+    font-weight: 700;
 }
 
 .about-text p {
     color: var(--gray-color);
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
     line-height: 1.8;
+    font-size: 1rem;
 }
 
 .about-info {
     margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
 }
 
 .info-item {
     display: flex;
     align-items: start;
     gap: 1rem;
-    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: var(--light-color);
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.info-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
 }
 
 .info-item i {
     font-size: 1.5rem;
     color: var(--primary-color);
     margin-top: 5px;
+    flex-shrink: 0;
 }
 
 .info-item h4 {
-    font-size: 1rem;
+    font-size: 0.95rem;
     margin-bottom: 0.3rem;
     color: var(--dark-color);
+    font-weight: 600;
 }
 
 .info-item p {
     color: var(--gray-color);
     margin: 0;
+    font-size: 0.95rem;
+    word-break: break-word;
+}
+
+.about-education {
+    max-width: 900px;
 }
 
 .education-item {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    padding: 1.5rem;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 2rem;
     background-color: var(--light-color);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+}
+
+.education-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15);
 }
 
 .education-item i {
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: var(--primary-color);
+    flex-shrink: 0;
 }
 
 .education-item h4 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin-bottom: 0.5rem;
     color: var(--dark-color);
+    font-weight: 700;
 }
 
 .education-item p {
     color: var(--gray-color);
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
 }
 
 .education-item span {
     color: var(--primary-color);
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
 }
 
 /* Skills Section */
@@ -1016,11 +1056,13 @@ section {
     font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
 }
 
 .contact-form button:hover {
     background-color: var(--secondary-color);
     transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(37, 99, 235, 0.4);
 }
 
 /* Footer */
@@ -1035,6 +1077,12 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer p {
+    margin: 0;
 }
 
 .footer-social {
@@ -1062,6 +1110,24 @@ section {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
 }
 
 /* Responsive Design */
@@ -1110,8 +1176,13 @@ section {
     }
 
     .home-buttons {
-        flex-direction: column;
-        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        flex: 1;
+        min-width: 150px;
+        text-align: center;
     }
 
     .about-content {
@@ -1120,8 +1191,31 @@ section {
     }
 
     .about-profile-container {
-        width: 250px;
-        height: 250px;
+        max-width: 300px;
+        height: 380px;
+        margin: 0 auto;
+    }
+
+    .about-info {
+        grid-template-columns: 1fr;
+    }
+
+    .certificate-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cert-actions {
+        width: 100%;
+    }
+
+    .btn-cert-action {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .certificate-preview {
+        height: 450px;
     }
 
     .contact-content {
@@ -1164,5 +1258,48 @@ section {
 
     .project-links {
         flex-direction: column;
+    }
+
+    .cert-actions {
+        flex-direction: column;
+    }
+
+    .btn-cert-action {
+        width: 100%;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+
+    .btn-modal {
+        width: 100%;
+    }
+
+    .profile-image-container {
+        width: 240px;
+        height: 240px;
+    }
+
+    .about-profile-container {
+        max-width: 250px;
+        height: 320px;
+    }
+
+    .timeline::before {
+        left: 20px;
+    }
+
+    .timeline-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .timeline-icon i {
+        font-size: 1.2rem;
+    }
+
+    .timeline-item {
+        gap: 1rem;
     }
 }
