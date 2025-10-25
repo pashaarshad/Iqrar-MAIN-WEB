@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Generator - Iqrar Pasha</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2563eb;
+            text-align: center;
+        }
+        canvas {
+            border: 2px solid #ddd;
+            margin: 20px auto;
+            display: block;
+            background: white;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            display: inline-block;
+        }
+        button:hover {
+            background: #1e40af;
+        }
+        .button-group {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .preview {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        input[type="file"] {
+            display: block;
+            margin: 20px auto;
+            padding: 10px;
+        }
+        .size-label {
+            font-weight: bold;
+            color: #333;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Favicon Generator for Iqrar Pasha Portfolio</h1>
+        
+        <div class="info">
+            <strong>Instructions:</strong>
+            <ol>
+                <li>Select your profile image (image.png) below</li>
+                <li>The tool will generate different sized favicons automatically</li>
+                <li>Click download buttons to save each size</li>
+                <li>Place the downloaded files in your website root folder</li>
+            </ol>
+        </div>
+
+        <input type="file" id="imageInput" accept="image/*">
+
+        <div class="preview" id="previewArea" style="display:none;">
+            <div class="size-label">16x16 Favicon</div>
+            <canvas id="canvas16" width="16" height="16"></canvas>
+            <button onclick="downloadCanvas('canvas16', 'favicon-16x16.png')">Download 16x16</button>
+
+            <div class="size-label">32x32 Favicon</div>
+            <canvas id="canvas32" width="32" height="32"></canvas>
+            <button onclick="downloadCanvas('canvas32', 'favicon-32x32.png')">Download 32x32</button>
+
+            <div class="size-label">Apple Touch Icon (180x180)</div>
+            <canvas id="canvas180" width="180" height="180"></canvas>
+            <button onclick="downloadCanvas('canvas180', 'apple-touch-icon.png')">Download Apple Touch Icon</button>
+
+            <div class="size-label">PWA Icon 192x192</div>
+            <canvas id="canvas192" width="192" height="192"></canvas>
+            <button onclick="downloadCanvas('canvas192', 'icon-192.png')">Download 192x192</button>
+
+            <div class="size-label">PWA Icon 512x512</div>
+            <canvas id="canvas512" width="512" height="512"></canvas>
+            <button onclick="downloadCanvas('canvas512', 'icon-512.png')">Download 512x512</button>
+
+            <div class="button-group">
+                <button onclick="downloadAll()" style="background: #10b981; font-size: 18px; padding: 15px 40px;">
+                    📦 Download All Icons
+                </button>
+            </div>
+        </div>
+
+        <div class="info">
+            <strong>📝 Note:</strong> After downloading, you can also create a .ico file by visiting 
+            <a href="https://www.favicon-generator.org/" target="_blank">favicon-generator.org</a> 
+            and uploading your image.png file.
+        </div>
+    </div>
+
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const previewArea = document.getElementById('previewArea');
+
+        imageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    generateFavicons(img);
+                    previewArea.style.display = 'block';
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function generateFavicons(img) {
+            // Generate different sizes
+            drawCanvas('canvas16', img, 16);
+            drawCanvas('canvas32', img, 32);
+            drawCanvas('canvas180', img, 180);
+            drawCanvas('canvas192', img, 192);
+            drawCanvas('canvas512', img, 512);
+        }
+
+        function drawCanvas(canvasId, img, size) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Draw circular image with background
+            ctx.fillStyle = '#2563eb';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Draw circular clip
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size/2 - 2, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.clip();
+            
+            // Draw image
+            ctx.drawImage(img, 0, 0, size, size);
+            ctx.restore();
+            
+            // Add border
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = size > 100 ? 4 : 2;
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size/2 - ctx.lineWidth, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+
+        function downloadCanvas(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        function downloadAll() {
+            setTimeout(() => downloadCanvas('canvas16', 'favicon-16x16.png'), 100);
+            setTimeout(() => downloadCanvas('canvas32', 'favicon-32x32.png'), 300);
+            setTimeout(() => downloadCanvas('canvas180', 'apple-touch-icon.png'), 500);
+            setTimeout(() => downloadCanvas('canvas192', 'icon-192.png'), 700);
+            setTimeout(() => downloadCanvas('canvas512', 'icon-512.png'), 900);
+            
+            alert('All icons will be downloaded! Check your Downloads folder.');
+        }
+    </script>
+</body>
+</html>
