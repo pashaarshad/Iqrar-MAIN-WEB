@@ -18,6 +18,8 @@
 
 html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -25,6 +27,23 @@ body {
     line-height: 1.6;
     color: var(--dark-color);
     background-color: var(--light-color);
+    overflow-x: hidden;
+}
+
+/* Performance Optimizations */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
 }
 
 .container {
