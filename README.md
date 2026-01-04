@@ -63,3 +63,5 @@ Professional portfolio website of **Iqrar Pasha** - A skilled Data Analyst and W
 ---
 
 **Keywords**: Iqrar Pasha, Data Analyst, Web Developer, Python Developer, MySQL Expert, JavaScript, PHP, Machine Learning, Data Science, Oracle Certified, Hunsur Karnataka, Portfolio
+
+*Note: placeholder change for PR creation.*
